@@ -1,0 +1,6 @@
+# Décommenter les variables suivantes en production pour éviter l'envoi sur le répertoire distant
+# data/
+# logs/
+# scripts/
+# secrets/
+# .env

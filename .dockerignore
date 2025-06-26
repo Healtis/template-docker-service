@@ -1,0 +1,30 @@
+# Sensitive files (never copy into the image)
+.env
+.env.*
+secrets/
+*.key
+*.pem
+*.crt
+*.enc
+*.jks
+*.token
+*.credentials
+*.secret
+
+# Unnecessary files in the image
+.git
+.gitignore
+.dockerignore
+.vscode/
+.idea/
+*.log
+logs/
+data/
+tmp/
+__pycache__/
+*.pyc
+*.swp
+*.bak
+*.tmp
+*.cache
+a

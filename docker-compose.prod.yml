@@ -1,0 +1,48 @@
+# This file is suppose to use only in production on server
+services:
+  app:
+    # Use the docker image from DockerHub, if it's an external image don't use latest and prefer a specfic version
+    image: myrepo/myservice:1.0
+    container_name: myservice_app
+    restart: unless-stopped
+
+    # During development uncomment this following lines 
+    # build: 
+    #   context : . 
+    #   dockerfile: Dockerfile
+
+    # Load environment variables from external .env file
+    env_file:
+      - .env
+
+    volumes:
+      # Synchronize containers timezone with host machine
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+      # Mount secrets directory as read-only
+      - ./secrets:/run/secrets:ro
+
+      # Mount application configuration files as read-only
+      - ./config:/app/config:ro
+
+      # Persistent data volume
+      - ./data:/app/data
+
+      # Application logs (can be collected or monitored externally)
+      - ./logs:/app/logs
+
+      # Custom scripts: entrypoint, init, healthcheck, etc.
+      - ./scripts:/app/scripts:ro
+
+    # Internal Docker network
+    networks:
+      - backend
+
+    # Expose container port to host
+    ports:
+      - "8080:80"  # host:container
+
+networks:
+  backend:
+    driver: bridge
